@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import avinash.springframework.spring5mvcrest.api.v1.domain.CustomerDTO;
+import avinash.springframework.spring5mvcrest.domain.Customer;
 import avinash.springframework.spring5mvcrest.mapper.CustomerMapper;
 import avinash.springframework.spring5mvcrest.repositories.CustomerRepository;
 
@@ -38,6 +39,17 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findById(id)
 				.map(customerMapper::customerToCustomerDTO)
 				.orElseThrow(RuntimeException::new);
+	}
+
+	@Override
+	public CustomerDTO createNewCustomer(CustomerDTO customerDTO) {
+		Customer customer = customerMapper.customerDTOToCustomer(customerDTO);
+		Customer savedCustomer = customerRepository.save(customer);
+		
+		CustomerDTO returnedCustomerDTO = customerMapper.customerToCustomerDTO(savedCustomer);
+		returnedCustomerDTO.setCustomerUrl("api/v1/customers/"+savedCustomer.getId());
+		
+		return returnedCustomerDTO;
 	}
 
 }
