@@ -3,10 +3,13 @@ package avinash.springframework.spring5mvcrest.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import avinash.springframework.spring5mvcrest.api.v1.domain.CategoryDTO;
 import avinash.springframework.spring5mvcrest.mapper.CategoryMapper;
 import avinash.springframework.spring5mvcrest.repositories.CategoryRepository;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 	
 	private final CategoryMapper categoryMapper;
