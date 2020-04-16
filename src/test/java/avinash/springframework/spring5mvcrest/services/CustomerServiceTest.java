@@ -1,8 +1,9 @@
 package avinash.springframework.spring5mvcrest.services;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +65,27 @@ public class CustomerServiceTest {
 		
 		assertEquals(FIRST_NAME, customerDTO.getFirstName());
 		assertEquals(LAST_NAME, customerDTO.getLastName());
+	}
+	
+	@Test
+	public void createNewCustomerTest() {
+		
+		CustomerDTO customerDTO = new CustomerDTO();
+		customerDTO.setFirstName("Avinash");
+		customerDTO.setLastName("Kumar");
+		
+		Customer savedCustomer = new Customer();
+		savedCustomer.setFirstName(customerDTO.getFirstName());
+		savedCustomer.setLastName(customerDTO.getLastName());
+		savedCustomer.setId(1L);
+		
+		when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+		
+		CustomerDTO savedCustomerDTO = customerService.createNewCustomer(customerDTO);
+		
+		assertEquals(customerDTO.getFirstName(), savedCustomerDTO.getFirstName());
+		assertEquals(customerDTO.getLastName(), savedCustomerDTO.getLastName());
+		assertEquals("api/v1/customers/1", savedCustomerDTO.getCustomerUrl());
 	}
 
 }
