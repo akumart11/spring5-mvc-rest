@@ -3,4 +3,4 @@
 # spring5-mvc-rest-sample
 
 MVC RestFul WebService Sample Application
-resource for exammple api = https://api.predic8.de/shop/docs
+resource for example api = https://api.predic8.de/shop/docs
