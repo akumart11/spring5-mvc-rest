@@ -16,4 +16,6 @@ public interface CustomerService {
 	
 	CustomerDTO pathCustomer(Long id, CustomerDTO customerDTO);
 	
+	void deleteCustomerById(Long id);
+	
 }
