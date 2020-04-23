@@ -3,6 +3,8 @@ package avinash.springframework.spring5mvcrest.services;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -107,6 +109,17 @@ public class CustomerServiceTest {
 		assertEquals(customerDTO.getFirstName(), savedCustomerDTO.getFirstName());
 		assertEquals(customerDTO.getLastName(), savedCustomerDTO.getLastName());
 		assertEquals("api/v1/customers/1", savedCustomerDTO.getCustomerUrl());
+	}
+	
+	@Test
+	public void deleteCustomerTest() {
+		Long id = 1L;
+		
+		customerRepository.deleteById(id);
+		
+		verify(customerRepository,times(1)).deleteById(id);		
+		
+		
 	}
 
 }
