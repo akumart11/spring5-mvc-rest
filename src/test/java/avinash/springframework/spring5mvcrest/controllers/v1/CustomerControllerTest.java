@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import avinash.springframework.spring5mvcrest.api.v1.domain.CustomerDTO;
 import avinash.springframework.spring5mvcrest.services.CustomerService;
+import avinash.springframework.spring5mvcrest.services.ResourceNotFoundException;
 
 public class CustomerControllerTest {
 
@@ -48,7 +49,9 @@ public class CustomerControllerTest {
 
 		MockitoAnnotations.initMocks(this);
 
-		mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+				.setControllerAdvice(new RestResponseEntityExceptionHandler())
+				.build();
 	}
 
 	@Test
@@ -144,7 +147,7 @@ public class CustomerControllerTest {
 		returnedCustomer.setLastName("Flintstone");
 		returnedCustomer.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
-		when(customerService.pathCustomer(anyLong(),any(CustomerDTO.class))).thenReturn(returnedCustomer);
+		when(customerService.patchCustomer(anyLong(),any(CustomerDTO.class))).thenReturn(returnedCustomer);
 
 		mockMvc.perform(patch(CustomerController.BASE_URL + "/1")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -160,7 +163,17 @@ public class CustomerControllerTest {
 		mockMvc.perform(delete(CustomerController.BASE_URL + "/1")
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
-		
+
 		verify(customerService).deleteCustomerById(anyLong());
+	}
+
+	@Test
+	public void testNotFoundException() throws Exception {
+
+		when(customerService.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
+
+		mockMvc.perform(get(CustomerController.BASE_URL + "/222")
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isNotFound());
 	}
 }
