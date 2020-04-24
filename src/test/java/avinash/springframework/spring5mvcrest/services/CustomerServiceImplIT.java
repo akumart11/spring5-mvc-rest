@@ -59,7 +59,7 @@ public class CustomerServiceImplIT {
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setFirstName(updatedName);
 		
-		customerService.pathCustomer(id, customerDTO);
+		customerService.patchCustomer(id, customerDTO);
 		
 		Customer updatedCustomer = customerRepository.findById(id).get();
 		
@@ -83,7 +83,7 @@ public class CustomerServiceImplIT {
 		CustomerDTO customerDTO = new CustomerDTO();
 		customerDTO.setLastName(updatedName);
 		
-		customerService.pathCustomer(id, customerDTO);
+		customerService.patchCustomer(id, customerDTO);
 		
 		Customer updatedCustomer = customerRepository.findById(id).get();
 		

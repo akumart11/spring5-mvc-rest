@@ -70,7 +70,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public CustomerDTO pathCustomer(Long id, CustomerDTO customerDTO) {
+	public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
 		return customerRepository.findById(id).map(customer ->{
 			if(customerDTO.getFirstName() != null) {
 				customer.setFirstName(customerDTO.getFirstName());

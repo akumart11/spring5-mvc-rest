@@ -147,7 +147,7 @@ public class CustomerControllerTest {
 		returnedCustomer.setLastName("Flintstone");
 		returnedCustomer.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
-		when(customerService.pathCustomer(anyLong(),any(CustomerDTO.class))).thenReturn(returnedCustomer);
+		when(customerService.patchCustomer(anyLong(),any(CustomerDTO.class))).thenReturn(returnedCustomer);
 
 		mockMvc.perform(patch(CustomerController.BASE_URL + "/1")
 				.contentType(MediaType.APPLICATION_JSON)
