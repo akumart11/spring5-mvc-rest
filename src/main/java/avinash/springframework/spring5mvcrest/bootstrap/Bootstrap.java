@@ -5,19 +5,24 @@ import org.springframework.stereotype.Component;
 
 import avinash.springframework.spring5mvcrest.domain.Category;
 import avinash.springframework.spring5mvcrest.domain.Customer;
+import avinash.springframework.spring5mvcrest.domain.Vendor;
 import avinash.springframework.spring5mvcrest.repositories.CategoryRepository;
 import avinash.springframework.spring5mvcrest.repositories.CustomerRepository;
+import avinash.springframework.spring5mvcrest.repositories.VendorRepository;
 
 @Component
 public class Bootstrap implements CommandLineRunner{
 	
 	private CategoryRepository categoryRepository;
 	private CustomerRepository customerRepository;
+	private VendorRepository vendorRepository;
 
-	public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+	public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository,
+			VendorRepository vendorRepository) {
 		super();
 		this.categoryRepository = categoryRepository;
 		this.customerRepository = customerRepository;
+		this.vendorRepository = vendorRepository;
 	}
 
 	@Override
@@ -25,6 +30,7 @@ public class Bootstrap implements CommandLineRunner{
 		
 		loadCustomer();
 		loadCategories();
+		loadVendors();
 	}
 
 	private void loadCategories() {
@@ -94,5 +100,34 @@ public class Bootstrap implements CommandLineRunner{
 		
 		System.out.println("Data Loaded Customer =" + customerRepository.count());
 	}
-
+	
+	private void loadVendors() {
+		
+		Vendor vendor1 = new Vendor();
+		vendor1.setId(672L);
+		vendor1.setName("Western Tasty Fruits Ltd.");
+		
+		Vendor vendor2 = new Vendor();
+		vendor2.setId(32L);
+		vendor2.setName("Exotic Fruits Company");
+		
+		Vendor vendor3 = new Vendor();
+		vendor3.setId(501L);
+		vendor3.setName("Home Fruits");
+		
+		Vendor vendor4 = new Vendor();
+		vendor4.setId(810L);
+		vendor4.setName("Fun Fresh Fruits Ltd");
+		
+		Vendor vendor5 = new Vendor();
+		vendor5.setId(67L);
+		vendor5.setName("Nuts for Nuts Company");
+		
+		vendorRepository.save(vendor1);
+		vendorRepository.save(vendor2);
+		vendorRepository.save(vendor3);
+		vendorRepository.save(vendor4);
+		vendorRepository.save(vendor5);
+		
+	}
 }
