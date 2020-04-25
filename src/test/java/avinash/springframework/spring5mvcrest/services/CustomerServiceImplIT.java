@@ -21,6 +21,7 @@ import avinash.springframework.spring5mvcrest.domain.Customer;
 import avinash.springframework.spring5mvcrest.mapper.CustomerMapper;
 import avinash.springframework.spring5mvcrest.repositories.CategoryRepository;
 import avinash.springframework.spring5mvcrest.repositories.CustomerRepository;
+import avinash.springframework.spring5mvcrest.repositories.VendorRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -31,6 +32,9 @@ public class CustomerServiceImplIT {
 
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	VendorRepository vendorRepository;
 
 	CustomerService customerService;
 
@@ -39,7 +43,7 @@ public class CustomerServiceImplIT {
 		System.out.println("Loading Customer Data");
 		System.out.println(customerRepository.findAll().size());
 		
-		Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository);
+		Bootstrap bootstrap = new Bootstrap(categoryRepository, customerRepository,vendorRepository);
 		bootstrap.run();
 		
 		customerService = new CustomerServiceImpl(CustomerMapper.INSTANCE, customerRepository);
