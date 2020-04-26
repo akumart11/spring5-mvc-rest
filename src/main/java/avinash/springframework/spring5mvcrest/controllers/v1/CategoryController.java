@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import avinash.springframework.spring5mvcrest.api.v1.domain.CategoryDTO;
 import avinash.springframework.spring5mvcrest.api.v1.domain.CategoryListDTO;
 import avinash.springframework.spring5mvcrest.services.CategoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(value = "/api/v1/categories",  tags = { "Categories" }, description = " ")
 @RestController
 @RequestMapping(CategoryController.BASE_URL)
 public class CategoryController {
@@ -23,6 +26,7 @@ public class CategoryController {
 		this.categoryService = categoryService;
 	}
 
+	@ApiOperation(value = "Lists all the Categories", notes = "Collection of Categories")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public CategoryListDTO getAllCategories(){
@@ -30,6 +34,7 @@ public class CategoryController {
 		return new CategoryListDTO(categoryService.getAllCategories());
 	}
 
+	@ApiOperation(value = "Finds Category By Id", notes = "Category")
 	@GetMapping("{name}")
 	@ResponseStatus(HttpStatus.OK)
 	public CategoryDTO getCategoryByName(@PathVariable String name){
